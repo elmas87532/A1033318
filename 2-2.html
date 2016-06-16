@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>2-2</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+	
+		try{
+			xhr=new XMLHttpRequest();
+			if(xhr.overrideMimeType)
+				xhr.overrideMimeType('text/xml');
+		}catch(e){
+			try{
+				xhr=new ActiveXObject("Msxml2.XMLHTTP");
+			}catch(e){
+				try{
+					xhr=new ActiveXObject("Microsoft.XMLHTTP");
+				}catch(e){
+					alter("您的瀏覽器不支援ＸＭＬＨＴＴＰ");
+					return false;
+				}
+			}
+		}
+
+		xhr.onreadystatechange = getData;
+		xhr.open("post","2-2.php",true);
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8');
+
+		var city=document.getElementById("city").value;
+		xhr.send("city="+city);
+
+		function getData(){
+			if(xhr.readyState==4)
+				if(xhr.status==200)
+					document.getElementById("area").innerHTML=xhr.responseText;
+		}
+	
+	</script>
+</head>
+<body>
+	<!--使用ajax從後台抓出資料-->
+	<form>
+	<!--此為範例 請自行修改-->
+		<select id="city" name="YourLocation">
+　			<option value="Taipei">台北市</option>
+			<option value="Tainan">台南市</option>
+　			<option value="Kaohsiung">高雄市</option>
+		</select>
+		<select id="area" name="area">
+			
+		</select>
+	</form>
+	<!--3-3題-->縣市+區域<input type="text" id="address"></br>
+	<!--加分題(需chrome可用)--><input type="button" value="下載">
+</body>
+</body>
+</html>
+
+
